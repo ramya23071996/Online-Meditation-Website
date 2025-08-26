@@ -1,0 +1,358 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+    }
+
+    .btn-dark-custom {
+        background-color: #2c2c2c;
+        border: none;
+        border-radius: 25px;
+        padding: 15px 40px;
+        font-weight: 600;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        font-size: 22px;
+    }
+
+    .btn-dark-custom:hover {
+        background-color: #1a1a1a;
+        transform: translateY(-2px);
+        color: white;
+    }
+
+    .page-title {
+        color: #8b3d99;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 38px;
+    }
+
+    .meditation-list-item {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 35px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        transition: all 0.3s ease;
+    }
+
+    .meditation-list-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .meditation-avatar-container {
+        position: relative;
+        width: 170px;
+        height: 170px;
+        border-radius: 20px;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    .meditation-avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+
+    .meditation-avatar.placeholder {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .play-button-small {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 24px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+        font-size: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+
+    .play-button-small:hover {
+        background: white;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    .meditation-content {
+        flex-grow: 1;
+        gap: 20px;
+    }
+
+    .meditation-author {
+        color: #666;
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .meditation-title {
+        color: #2c2c2c;
+        font-weight: 600;
+        margin-bottom: 4px;
+        font-size: 28px;
+    }
+
+    .meditation-description {
+        color: #888;
+        font-size: 22px;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .meditation-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .duration {
+        color: #666;
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .progress-bar-mini {
+        background: #f0f0f0;
+        height: 4px;
+        border-radius: 2px;
+        overflow: hidden;
+        margin-bottom: 8px;
+        width: 100%;
+    }
+
+    .progress-fill-mini {
+        background: #8b3d99;
+        height: 100%;
+        border-radius: 2px;
+        width: 0%;
+        transition: width 0.3s ease;
+    }
+
+   
+</style>
+
+<div class="container py-5">
+    <!-- Page Title -->
+    <h1 class="page-title">Discover popular meditations.</h1>
+
+    <!-- Meditation List -->
+    <div class="meditation-list" style="max-width: 1100px; margin: 0 auto;">
+
+        <!-- Pascal Ackroyd - Rediscover the Familiar -->
+        <div class="meditation-list-item">
+            <div class="meditation-avatar-container">
+                <!-- Replace with actual image -->
+                <img src="{% static 'images/med1.png' %}" alt="Pascal Auclair" class="meditation-avatar">
+                <div class="meditation-avatar placeholder avatar-1" style="display: none;">P</div>
+
+                <!-- Play Button Overlay -->
+                <div class="play-button-small" onclick="togglePlaySmall(this)">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="meditation-content">
+                <p class="meditation-author">Pascal Auclair</p>
+                <h6 class="meditation-title">Rediscover the Familiar</h6>
+                <p class="meditation-description">This is the first time you've ever been here, now. Pascal invites you
+                    to discover the vivid and mysterious experience of being present.</p>
+                <div class="progress-bar-mini">
+                    <div class="progress-fill-mini" data-meditation="pascal"></div>
+                </div>
+                <div class="meditation-controls">
+                    <span class="duration">5:00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kit - Natural mindful walking meditation -->
+        <div class="meditation-list-item">
+            <div class="meditation-avatar-container">
+                <img src="{% static 'images/med2.png' %}" alt="Alexis Santos" class="meditation-avatar">
+                <div class="meditation-avatar placeholder avatar-2" style="display: none;">K</div>
+
+                <div class="play-button-small" onclick="togglePlaySmall(this)">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="meditation-content">
+                <p class="meditation-author">Alexis Santos</p>
+                <h6 class="meditation-title">Natural mindful walking meditation</h6>
+                <p class="meditation-description">Taking a relaxed walk mindfully will soothe the nervous system; get
+                    you outside, and can refresh you mentally when you're feeling low or off.</p>
+                <div class="progress-bar-mini">
+                    <div class="progress-fill-mini" data-meditation="kit"></div>
+                </div>
+                <div class="meditation-controls">
+                    <span class="duration">13:00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rhozon - Being with Big Emotions -->
+        <div class="meditation-list-item">
+            <div class="meditation-avatar-container">
+                <img src="{% static 'images/med3.png' %}" alt="Sharon Salzberg" class="meditation-avatar">
+                <div class="meditation-avatar placeholder avatar-3" style="display: none;">R</div>
+
+                <div class="play-button-small" onclick="togglePlaySmall(this)">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="meditation-content">
+                <p class="meditation-author">Sharon Salzberg</p>
+                <h6 class="meditation-title">Being with Big Emotions</h6>
+                <p class="meditation-description">Bring an open attitude to your big emotions and get to know yourself
+                    more fully, developing resilience to deal with the feels.</p>
+                <div class="progress-bar-mini">
+                    <div class="progress-fill-mini" data-meditation="rhozon"></div>
+                </div>
+                <div class="meditation-controls">
+                    <span class="duration">9:30</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Joseph Goldstein - Balanced Compassion -->
+        <div class="meditation-list-item">
+            <div class="meditation-avatar-container">
+                <img src="{% static 'images/med4.png' %}" alt="Joseph Goldstein" class="meditation-avatar">
+                <div class="meditation-avatar placeholder avatar-4" style="display: none;">J</div>
+
+                <div class="play-button-small" onclick="togglePlaySmall(this)">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="meditation-content">
+                <p class="meditation-author">Joseph Goldstein</p>
+                <h6 class="meditation-title">Balanced Compassion</h6>
+                <p class="meditation-description">We're living in challenging times. Try practicing balance, letting you
+                    open to the suffering of others without getting lost in overwhelm.</p>
+                <div class="progress-bar-mini">
+                    <div class="progress-fill-mini" data-meditation="joseph"></div>
+                </div>
+                <div class="meditation-controls">
+                    <span class="duration">7:00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Self-kindness for stress -->
+        <div class="meditation-list-item">
+            <div class="meditation-avatar-container">
+                <img src="{% static 'images/med5.png' %}" alt="Sebene Selassie" class="meditation-avatar">
+                <div class="meditation-avatar placeholder avatar-5" style="display: none;">S</div>
+
+                <div class="play-button-small" onclick="togglePlaySmall(this)">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <div class="meditation-content">
+                <p class="meditation-author">Sebene Selassie</p>
+                <h6 class="meditation-title">Self-kindness for stress</h6>
+                <p class="meditation-description">Showing self-compassion to counteract to hard times bolsters our
+                    resilience, so we can learn from setbacks rather than getting stuck in rumination.</p>
+                <div class="progress-bar-mini">
+                    <div class="progress-fill-mini" data-meditation="self-kindness"></div>
+                </div>
+                <div class="meditation-controls">
+                    <span class="duration">12:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Get 14 Days Free Trial Button -->
+    <div class="text-center mt-5">
+        <button class="btn-dark-custom" onclick="startFreeTrial()">
+            Get 14 Days Free Trial
+        </button>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    function togglePlaySmall(button) {
+        const meditationItem = button.closest('.meditation-list-item');
+        const progressBar = meditationItem.querySelector('.progress-fill-mini');
+
+        // Reset all other play buttons and stop their progress
+        const allPlayButtons = document.querySelectorAll('.play-button-small i');
+        const allProgressBars = document.querySelectorAll('.progress-fill-mini');
+
+        allPlayButtons.forEach(icon => {
+            if (icon !== button.querySelector('i')) {
+                icon.className = 'fas fa-play';
+            }
+        });
+
+        // Stop all other progress animations
+        allProgressBars.forEach(bar => {
+            if (bar !== progressBar) {
+                bar.style.width = '0%';
+                if (bar.interval) {
+                    clearInterval(bar.interval);
+                    bar.interval = null;
+                }
+            }
+        });
+
+        // Toggle current button
+        const icon = button.querySelector('i');
+        if (icon.classList.contains('fa-play')) {
+            icon.className = 'fas fa-pause';
+
+            // Start progress animation
+            let progress = 0;
+            progressBar.interval = setInterval(() => {
+                progress += 1;
+                progressBar.style.width = progress + '%';
+
+                if (progress >= 100) {
+                    clearInterval(progressBar.interval);
+                    icon.className = 'fas fa-play';
+                    progressBar.style.width = '0%';
+                    progressBar.interval = null;
+                }
+            }, 100);
+        } else {
+            icon.className = 'fas fa-play';
+            if (progressBar.interval) {
+                clearInterval(progressBar.interval);
+                progressBar.interval = null;
+            }
+        }
+    }
+
+    function startFreeTrial() {
+        alert('Starting your 14-day free trial!');
+        // You can redirect to signup page or handle trial start here
+    }
+</script>
+{% endblock%}

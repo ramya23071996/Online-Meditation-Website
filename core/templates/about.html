@@ -1,0 +1,188 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    body{
+        font-family: "Roboto", sans-serif;
+        background-color: #fce4ec;
+    }
+      .teacher-section {
+            padding: 60px 0;
+
+        }
+        
+        .teacher-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+        }
+        
+        .teacher-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .teacher-image {
+            width: 200px;
+            height: 170px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            display: block;
+            border: 4px solid #f8f9fa;
+            box-shadow: 15px 0px 0px rgba(0,0,0,0.1);
+        }
+        
+        .teacher-name {
+            font-size: 30px;
+            font-weight: bolder;
+            color: black;
+            margin-bottom: 15px;
+        }
+        
+        .teacher-description {
+            color: black;
+            line-height: 1.6;
+            font-size: 22px;
+        }
+        
+        .section-title {
+            font-size: 38px;
+            font-weight: bold;
+            color: black;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+      
+      
+</style>
+<div class="container py-5">
+
+    <h2 style="font-size: 38px; color: black;" class="text-center fw-bold mb-5">About  DEE PLUS</h2>
+
+    <!-- Our Mission -->
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-5 mb-4 mb-lg-0">
+            <img src="{% static 'images/abt1.jpg' %}" alt="Mission" class="img-fluid rounded" width="350px" height="350px">
+        </div>
+        <div class="col-lg-7">
+            <h4 style="font-size: 30px; color: black;" class="fw-bold">Our Mission</h4>
+            <p style="font-size: 22px; color: black;">
+                Our mission is to provide a valuable resource of information and downloads
+                to people who want to evolve mentally, emotionally and spiritually, and to help
+                people become healthier, happier and more peaceful.
+            </p>
+        </div>
+    </div>
+
+    <!-- Who we are -->
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-7 order-2 order-lg-1">
+            <h4 style="font-size: 30px; color: black;" class="fw-bold text-center ">Who we are</h4>
+            <p style="font-size: 22px; color: black;" class=" text-center text-lg-start">
+                Think of DEE PLUS as your lifelong guide to better mental health. We’re
+                here for you whenever you need us, wherever you are, helping you get through
+                tough times and find joy in every day.
+            </p>
+        </div>
+        <div class="col-lg-5 order-1 order-lg-2 text-center">
+            <img src="{% static 'images/download.jfif' %}" alt="Who we are" class="img-fluid" style="max-width:150px; border-radius: 50%;">
+        </div>
+    </div>
+
+    <!-- What we do -->
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-7 order-2 order-lg-1">
+            <h4 style="font-size: 30px; color: black;" class="fw-bold text-center">What we do</h4>
+            <p style="font-size: 22px; color: black;" class=" text-center text-lg-start">
+                Through evidence-based meditation and mindfulness tools, mental health
+                coaching, therapy, psychiatry, Headspace helps you create life-changing
+                habits to support your mental health and find a healthier, happier you.
+            </p>
+        </div>
+        <div class="col-lg-5 order-1 order-lg-2 text-center">
+            <img src="{% static 'images/download (1).jfif' %}" alt="What we do" class="img-fluid" style="max-width:150px; border-radius: 50%;">
+        </div>
+    </div>
+
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-7 order-2 order-lg-1">
+            <h4 style="font-size: 30px; color: black;" class="fw-bold text-center">How we do it</h4>
+            <p style="font-size: 22px; color: black;" class=" text-center text-lg-start">
+               Our four values inform our decisions and
+                how we operate day-to-day:put members first; bring a beginner's mind;
+                seek truth; speak truth; embrace ownership.</p>
+        </div>
+        <div class="col-lg-5 order-1 order-lg-2 text-center">
+            <img src="{% static 'images/abt2.jpg' %}" alt="What we do" class="img-fluid" style="max-width:150px; border-radius: 50%;">
+        </div>
+    </div>
+</div>
+
+<section class="teacher-section">
+        <div class="container">
+            <h2 class="section-title">Meet DEE PLUS Teachers</h2>
+            
+            <div class="row g-4">
+                <!-- Kessonga -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="teacher-card">
+                         <div class="teacher-image">
+                         <img src="{% static 'images/about1.png' %}" alt="Kessonga" class="teacher-image">
+                       </div>
+                        <h3 class="teacher-name">Kessonga</h3>
+                        <p class="teacher-description">
+                            Kessonga is a meditation teacher, therapist, and acupuncturist who has worked with populations of all ages and backgrounds.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Andy -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="teacher-card">
+                        <div class="teacher-image" >
+                         <img src="{% static 'images/about2.png' %}" alt="Andy" class="teacher-image">
+                        </div>
+                        <h3 class="teacher-name">Andy</h3>
+                        <p class="teacher-description">
+                            A former Buddhist monk and co-founder of the DEE PLUS app, Andy has guided people in meditation for over 20 years.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Eve -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="teacher-card">
+                        <div class="teacher-image" >
+                         <img src="{% static 'images/about3.png' %}" alt="Eve" class="teacher-image">
+                        </div>
+                        <h3 class="teacher-name">Eve</h3>
+                        <p class="teacher-description">
+                            Eve has been with DEE PLUS since the beginning, teaching mindfulness and overseeing our meditation curriculum.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Dora -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="teacher-card" style="width:260px; height:150;">
+                        <div class="teacher-image" >
+                         <img src="{% static 'images/about4.png' %}" alt="Dora" class="teacher-image"   >
+                        </div>
+                        <h3 class="teacher-name">Dora</h3>
+                        <p class="teacher-description">
+                            Dora is a meditation teacher and former psychiatric nurse who is passionate about the healing powers of connection and community.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

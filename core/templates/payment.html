@@ -1,0 +1,257 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        margin: 0;
+        padding: 20px;
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    
+
+    .payment-container {
+        background: rgb(219, 181, 187);
+        border-radius: 20px;
+        padding: 60px;
+        margin: 30px;
+        margin-left: 100px;
+        max-width: 900px;
+        height: auto;
+        line-height: 1.6;
+        width: 100%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .payment-details h2,
+    .payment-methods h2 {
+        text-align: center;
+        line-height: 1.4;
+        font-size: 32px;
+        font-weight: bold;
+        color: #7f10a0;
+        margin-bottom: 20px;
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        font-size: 24px;
+        font-weight: medium;
+        color: black;
+    }
+
+    .detail-row.total {
+        font-weight: bold;
+        border-top: 1px solid #c0a8d8;
+        padding-top: 15px;
+        margin-top: 12px;
+    }
+
+    .payment-option {
+        display: flex;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .payment-option:last-of-type {
+        border-bottom: none;
+    }
+
+    .payment-icon {
+        width: 36px;
+        height: 36px;
+        margin-right: 12px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .upi-icon { background: #ff6b35; }
+    .google-pay { background: #4285f4; }
+    .phone-pay { background: #5f259f; }
+    .paytm { background: #00baf2; }
+    .amazon-pay { background: #ff9900; }
+    .whatsapp { background: #25d366; }
+
+    .payment-label {
+        flex-grow: 1;
+        font-size: 22px;
+        padding: 10px;
+        color: black;
+    }
+
+    .payment-checkbox {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #999;
+        border-radius: 3px;
+        background: white;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .payment-checkbox:checked {
+        background: #6c5ce7;
+        border-color: #6c5ce7;
+    }
+
+    .payment-checkbox:checked::after {
+        content: '✓';
+        position: absolute;
+        color: white;
+        font-size: 12px;
+        top: -2px;
+        left: 2px;
+    }
+
+    .confirm-button {
+        width: 100%;
+        background: linear-gradient(to bottom, #572789, #420452);
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: background 0.3s;
+    }
+
+    .confirm-button:hover {
+        background: #5b4bd6;
+    }
+
+    .debit-card-option {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+  .modal-img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+        border-radius: 20px;
+    }
+</style>
+
+    <div class="payment-container payment-details">
+        <h2>Payment Details</h2>
+        <div class="detail-row">
+            <span>Therapist Fee Per Session</span>
+            <span>Rs.2,500.00</span>
+        </div>
+        <div class="detail-row">
+            <span>No. of Session 25</span>
+            <span>Rs.62,500.00</span>
+        </div>
+        <div class="detail-row">
+            <span>Vehicle Fees</span>
+            <span>Rs.1,500.00</span>
+        </div>
+        <div class="detail-row">
+            <span>Counselling Fees</span>
+            <span>Rs.4,500.00</span>
+        </div>
+        <div class="detail-row total">
+            <span>Total</span>
+            <span>Rs.68,500.00</span>
+        </div>
+    </div>
+
+    <!-- Payment Methods -->
+    <h2 style=" text-align: center; font-size: 32px; font-weight: bold; color:#7f10a0; margin-bottom: 20px;">Payment Method</h2>
+    <div class="payment-container payment-methods">
+        <div class="debit-card-option">
+            <div class="payment-option">
+                <span class="payment-label">Debit/Credit Card</span>
+                <input type="checkbox" class="payment-checkbox" name="payment" value="card">
+            </div>
+        </div>
+
+        <div class="payment-option">
+            <div class="payment-icon upi-icon">UPI</div>
+            <span class="payment-label">UPI</span>
+            <input type="checkbox" class="payment-checkbox" name="payment" value="upi">
+        </div>
+
+        <div class="payment-option">
+            <div class="payment-icon google-pay">G</div>
+            <span class="payment-label">Google Pay</span>
+            <input type="checkbox" class="payment-checkbox" name="payment" value="gpay">
+        </div>
+
+        <div class="payment-option">
+            <div class="payment-icon phone-pay">📱</div>
+            <span class="payment-label">Phone Pay</span>
+            <input type="checkbox" class="payment-checkbox" name="payment" value="phonepe">
+        </div>
+
+        <div class="payment-option">
+            <div class="payment-icon paytm">₹</div>
+            <span class="payment-label">Paytm</span>
+            <input type="checkbox" class="payment-checkbox" name="payment" value="paytm">
+        </div>
+
+        <div class="payment-option">
+            <div class="payment-icon amazon-pay">pay</div>
+            <span class="payment-label">Amazon Pay</span>
+            <input type="checkbox" class="payment-checkbox" name="payment" value="amazonpay">
+        </div>
+
+        <div class="payment-option">
+            <div class="payment-icon whatsapp">💬</div>
+            <span class="payment-label">WhatsApp</span>
+            <input type="checkbox" class="payment-checkbox" name="payment" value="whatsapp">
+        </div>
+
+        <button class="confirm-button" onclick="confirmPayment()">Confirm Payment</button>
+    </div>
+
+    <!-- Payment Success Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 bg-transparent">
+          <img src="{% static 'images/payment.png' %}" alt="Success" class="modal-img" data-bs-dismiss="modal">
+        </div>
+      </div>
+    </div>
+
+      <script>
+        // Only one checkbox selection
+        const checkboxes = document.querySelectorAll('input[name="payment"]');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', function () {
+                if (this.checked) {
+                    checkboxes.forEach(other => { if (other !== this) other.checked = false; });
+                }
+            });
+        });
+
+        // Show modal on confirm
+        function confirmPayment() {
+            const selectedPayment = document.querySelector('input[name="payment"]:checked');
+            if (selectedPayment) {
+                const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                modal.show();
+            } else {
+                alert('Please select a payment method');
+            }
+        }
+    </script>
+</body>
+{% endblock %}

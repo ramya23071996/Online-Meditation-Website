@@ -1,0 +1,209 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+    background-color: #fce4ec; /* Baby pink */
+  }
+    .main-title {
+        color: #8b3d99;
+        font-weight: bold;
+        text-align: center;
+        font-size: 38px;
+        font-weight: 600;
+        margin-bottom: 40px;
+    }
+
+    .intro-section {        
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 60px;
+        padding: 30px;
+
+    }
+
+    .intro-text {
+        width: 90%;
+        color: black;
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 0;
+        text-align: center;
+    }
+
+    .intro-image {
+        width: 100%;
+        max-width: 800px;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
+    .services-title {
+        color: #8b3d99;
+        font-weight: bold;
+        text-align: center;
+        font-size: 38px;
+        margin-bottom: 40px;
+    }
+
+    .service-card {
+        background: white;
+        border-radius: 50px 0 50px 0;
+        padding: 0;
+        margin-bottom: 30px;box-shadow: 10px 10px 5px brown;
+        overflow: hidden;
+        text-align: center;
+        width: 350px;
+        height: 300px;
+    }
+
+    .service-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .service-content {
+        padding-top: 5px;
+         text-align: center;
+    }
+
+    .service-title {
+        color:black;
+        font-weight: 600;
+        font-size: 22px;
+        font-weight: 600;
+        margin: 0;
+       
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    .bottom-services {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        max-width: 66.666%;
+        margin: 0 auto;
+        margin-bottom: 50px;
+    }
+
+    @media (max-width: 992px) {
+        .intro-section {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .intro-image {
+            margin-top: 20px;
+        }
+
+        .services-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .bottom-services {
+            max-width: 100%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .bottom-services {
+            grid-template-columns: 1fr;
+        }
+
+        .intro-section {
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+    }
+</style>
+
+<div class="page-bg">
+    <div class="container">
+        <h1 class="main-title">DEE PLUS Therapy</h1>
+
+        <!-- Intro Section -->
+        <div class="intro-section">
+            <div class="row align-items-center w-100">
+                <div class="col-lg-8">
+                    <p class="intro-text">
+                        Therapy is a process where a person works with a trained professional to explore thoughts,
+                        feelings, and behaviors in order to improve mental health, cope with challenges, and promote
+                        personal growth. It can include talking, practicing new skills, or using specific techniques to
+                        heal, understand oneself better, or manage life more effectively.
+                    </p>
+                </div>
+                <div class="col-lg-4">
+                    <img src="{% static 'images/the1.png' %}"
+                        alt="Therapy session" class="intro-image">
+                </div>
+            </div>
+        </div>
+
+        <h2 class="services-title">Our Services</h2>
+
+       <div class="services-grid">
+    <div>
+        <div class="service-card">
+            <img src="{% static 'images/Phychotherapy-min.jpg' %}" alt="Individual Therapy" class="service-image">
+        </div>
+        <div class="service-content">
+            <h3 class="service-title">Individual Therapy</h3>
+        </div>
+    </div>
+
+    <div>
+        <div class="service-card">
+            <img src="{% static 'images/the2.jpeg' %}" alt="Couple Therapy" class="service-image">
+        </div>
+        <div class="service-content">
+            <h3 class="service-title">Couple Therapy</h3>
+        </div>
+    </div>
+
+    <div>
+        <div class="service-card">
+            <img src="{% static 'images/fam1.jpg' %}" alt="Family Therapy" class="service-image">
+        </div>
+        <div class="service-content">
+            <h3 class="service-title"><a href="{% url 'family' %}" style="color: black; text-decoration: none;"> Family Therapy</a></h3>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom 2 Services -->
+<div class="bottom-services">
+    <div>
+        <div class="service-card">
+            <img src="{% static 'images/the3.jpg' %}" alt="Group Therapy" class="service-image">
+        </div>
+        <div class="service-content">
+            <h3 class="service-title">Group Therapy</h3>
+        </div>
+    </div>
+
+    <div>
+        <div class="service-card">
+            <img src="{% static 'images/the4.jpg' %}" alt="Online Therapy" class="service-image">
+        </div>
+        <div class="service-content">
+            <h3 class="service-title">Online Therapy</h3>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+{% endblock%}

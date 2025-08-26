@@ -1,0 +1,136 @@
+/* base.css */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px; /* Optional: adjust for readability */
+    color: #ffffff;  /* If you're using a dark background */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+
+.nav-link, footer p, footer a {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+.logo-img {
+    max-height: 60px;
+}
+header {
+    background-color: #B285C0;
+    color: #fff;
+}
+header, footer {
+    font-size: 1.3rem;
+    border-radius: 50px 50px 50px 50px
+}
+
+footer h6 {
+    font-size: 1.2rem;
+}
+
+footer p, footer a {
+    font-size: 1rem;
+}
+
+footer {
+    background-color: #B285C0;
+    color: #eee;
+}
+
+.footer-art {
+    max-width: 100px;
+    height: auto;
+    border-radius: 8px;
+}
+.nav-link {
+    font-weight: 500;
+    color: white;
+}
+
+.nav-link:hover {
+    color: #c07f1d;
+    text-decoration: underline;
+}
+
+.icons span {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.icons span:hover {
+    transform: scale(1.2);
+}
+
+.footer-logo {
+    font-family: 'Segoe UI', sans-serif;
+    letter-spacing: 1px;
+}
+
+.contact-info p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+
+/* base.css */
+
+/* Small devices (phones, up to 576px) */
+@media (max-width: 576px) {
+    header, footer {
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .icons {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .contact-info {
+        text-align: center;
+    }
+
+    .footer-links ul {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Medium devices (tablets, 577px to 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
+    .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .footer-links ul {
+        gap: 1rem;
+    }
+
+    .contact-info {
+        font-size: 0.9rem;
+    }
+}
+
+/* Large devices (desktops, 769px and up) */
+@media (min-width: 769px) {
+    .container {
+        max-width: 1140px;
+    }
+
+    .footer-logo {
+        font-size: 1.5rem;
+    }
+
+    .contact-info {
+        font-size: 1rem;
+    }
+}

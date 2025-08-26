@@ -1,0 +1,913 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+     body {
+    background-color: #fce4ec; /* Baby pink */
+  }
+    .text-purple {
+        color: purple;
+    }
+    .text_black {
+        color: black;
+    }
+
+    .container {
+        font-size: 28px;
+    }
+
+    .bg-green {
+        /* background-image: url('{% static "images/bghome.jpg" %}'); */
+        background-size: cover;
+        background-position: center;
+        margin: 30px 30px 0 30px;
+    }
+
+    .therapy-card {
+        border: 2px solid #9b59b6;
+        border-radius: 14px;
+        transition: all 0.3s ease-in-out;
+        background-color: #fff;
+    }
+
+    .therapy-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 20px rgba(155, 89, 182, 0.3);
+        border-color: #6a5acd;
+    }
+
+    .therapy-card h5 {
+        color: #2c3e50;
+        font-size: 28px;
+        font-weight: 600;
+    }
+
+    .therapy-card p a {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .therapy-card img {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .therapy-card:hover img {
+        transform: scale(1.1);
+    }
+
+    /* Purple highlighted card */
+    .therapy-highlight {
+        background-color: #6a5acd;
+        color: #fff;
+        border-radius: 14px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .therapy-highlight:hover {
+        background-color: #7a6ce0;
+        box-shadow: 0 8px 20px rgba(106, 90, 205, 0.5);
+        transform: translateY(-6px);
+    }
+
+    .therapy-highlight h5,
+    .therapy-highlight p a {
+        color: #fff !important;
+    }
+
+    /* Images inside the grid */
+    .therapy-img {
+        border-radius: 14px;
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .therapy-img:hover {
+        transform: scale(1.03);
+    }
+
+    .testimonials-section {
+        background: linear-gradient(to bottom, #B8F2F0 0%, #A8E6A3 100%);
+        position: relative;
+        min-height: 450px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .testimonials-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .testimonials-label {
+        color: #333;
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    .testimonials-title {
+        color: #8B4A9C;
+        font-size: 38px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .testimonials-container {
+        position: relative;
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-arrow {
+        position: absolute;
+        top: 60px;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 10;
+        font-size: 100px;
+        color: #333;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    .nav-arrow:hover {
+        color: #8B4A9C;
+    }
+
+    .nav-arrow.prev {
+        left: 20px;
+    }
+
+    .nav-arrow.next {
+        right: 20px;
+    }
+
+    .client-avatar {
+        position: absolute;
+        top: -70px;
+        right: 70px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .client-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .pagination-dots {
+        position: absolute;
+        bottom: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 15px;
+    }
+
+    .dot {
+        width: 60px;
+        height: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .dot.active {
+        background-color: #8B4A9C;
+    }
+
+    .dot:not(.active) {
+        background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .dot:hover:not(.active) {
+        background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    @media (max-width: 768px) {
+        .testimonials-section {
+            padding: 40px 20px;
+        }
+
+        .testimonials-title {
+            font-size: 32px;
+        }
+
+        .nav-arrow {
+            font-size: 40px;
+        }
+
+        .nav-arrow.prev {
+            left: 10px;
+        }
+
+        .nav-arrow.next {
+            right: 10px;
+        }
+
+        .client-avatar {
+            width: 60px;
+            height: 60px;
+            top: 15px;
+            right: 20px;
+        }
+    }
+
+    .therapist-section {
+        padding: 60px 0;
+        position: relative;
+    }
+
+    .sectiont-title {
+        color: #8B4A9C;
+        font-size: 38px;
+        font-weight: bold;
+    }
+
+    .navt-arrow {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #C8E6C9;
+        border: none;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .navt-arrow:hover {
+        background-color: #A5D6A7;
+        transform: scale(1.05);
+    }
+
+    .team-member {
+        background-color: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        width: 280px;
+        margin: 0 auto;
+    }
+
+    .team-member:hover {
+        transform: translateY(-5px);
+    }
+
+    .member-photo {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+    .member-info {
+        background-color: #C8E6C9;
+        padding: 25px 20px;
+    }
+
+    .member-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    .member-role {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .dott {
+        width: 50px;
+        height: 8px;
+        border-radius: 4px;
+        background-color: #8B4A9C;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+    }
+
+    .dott:not(.active) {
+        opacity: 0.4;
+    }
+
+
+    .article-card {
+        background-color: #C8E6C9;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        height: 100%;
+    }
+
+    .article-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .article-image {
+        width: 100%;
+        height: 60%;
+        object-fit: cover;
+        border-radius: 30px;
+    }
+
+    .article-content {
+
+        padding: 30px 25px;
+        height: calc(100% - 250px);
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: space-between;
+    }
+
+    .article-meta {
+        font-size: 16px;
+        font-weight: 500;
+        color: black;
+        margin-bottom: 15px;
+    }
+
+    .article-title {
+        font-size: 26px;
+        font-weight: bold;
+        color: black;
+        line-height: 1.3;
+        padding: 20px;
+        flex-grow: 1;
+    }
+
+    .read-more {
+        color: #666;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .read-more:hover {
+        color: #333;
+        text-decoration: underline;
+    }
+
+
+
+    .faq-item {
+        border-bottom: 2px solid black;
+        padding: 30px 0;
+    }
+
+    .faq-item:last-child {
+        border-bottom: none;
+    }
+
+    .faq-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        cursor: pointer;
+        margin: 0;
+    }
+
+    .faq-question-text {
+        font-size: 28px;
+        font-weight: bold;
+        color:black;
+        margin: 0;
+        flex: 1;
+        padding-right: 20px;
+    }
+
+    .faq-icon {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        line-height: 1;
+        flex-shrink: 0;
+    }
+
+    .faq-answer {
+        margin-top: 20px;
+        font-size: 20px;
+        color:black;
+        line-height: 1.6;
+        display: none;
+    }
+
+    .faq-answer.show {
+        display: block;
+    }
+
+    .faq-icon {
+        transition: transform 0.3s ease;
+    }
+    .back_color {
+        /* background: linear-gradient(135deg, #78db1b, #c49cae); */
+        background-image: url('{% static "images/bghome.jpg" %}');
+    }
+</style>
+
+<div style="position: relative; display: inline-block; width: 95%;margin: 30px;">
+    <!-- Background Image -->
+    <img src="{% static 'images/hom1.jpg' %}" alt="Meditation" style="width:100%; height:500px; display:block;">
+
+    <!-- Button Positioned -->
+    <a href="{% url 'therapy' %}" style="position: absolute; 
+              bottom: 30%; 
+              right: 25%; 
+              background: linear-gradient(to right, #61317d, #2575fc); 
+              color:black; 
+              padding: 12px 25px; 
+              border-radius: 25px; 
+              text-decoration: none; 
+              font-weight: bold; 
+              font-size: 26px;">
+        Join Now
+    </a>
+</div>
+
+
+<div class="container py-5">
+    <h3 style="padding-bottom: 40px; text-align: center; font-size: 38px;font-weight: 600;color: purple;">What DEE PLUS
+        <span style="color: white;">Stands For</span>
+    </h3>
+    <div class="row align-items-center">
+
+        <!-- Left Column: Text -->
+        <div class="col-lg-6 col-md-12 mb-4" style="border-right: 1px solid black;">
+            <div class="text-center">
+                <p><strong class="text-purple">M Mindfulness</strong><br><span class="text_black">Being aware of the present</span></p>
+                <p><strong class="text-purple">E Equanimity</strong><br><span class="text_black">Calm and balanced emotions</span></p>
+                <p><strong class="text-purple">D Discipline</strong><br><span class="text_black">Consistency in practice</span></p>
+                <p><strong class="text-purple">I Inner Peace</strong><br><span class="text_black">A state of deep tranquility</span></p>
+                <p><strong class="text-purple">T Tranquility</strong><br><span class="text_black">Soothing the restless mind</span></p>
+                <p><strong class="text-purple">A Awareness</strong><br><span class="text_black">Conscious observation without reaction</span></p>
+                <p><strong class="text-purple">T Transformation</strong><br><span class="text_black">Gradual personal growth</span></p>
+                <p><strong class="text-purple">I Intention</strong><br><span class="text_black">Clarity of purpose</span></p>
+                <p><strong class="text-purple">O Observation</strong><br><span class="text_black">Watching thoughts without control</span></p>
+                <p><strong class="text-purple">N Now</strong><br><span class="text_black">Anchoring yourself in the present moment</span></p>
+            </div>
+        </div>
+
+        <!-- Right Column: Image + Extra Text -->
+        <div class="col-lg-6 col-md-12 text-center">
+            <img src="{% static 'images/hom2.jpg' %}" alt="Meditation" class="img-fluid mb-4"
+                style="max-width: 450px; background-color: #fce4ec;">
+            <h5 style="text-align: center; font-size: 34px;font-weight: 600;color: purple;">In Therapy Helps With</h5>
+            <p class="text_black">Reducing stress and anxiety</p>
+            <p class="text_black">Enhancing focus and clarity</p>
+            <p class="text_black">Improving emotional regulation</p>
+            <p class="text_black">Promoting self-awareness</p>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section class="py-5 bg-green">
+    <div class="container"><div class="back_color">
+        <div class="row align-items-center">
+
+            <!-- Left Side Image -->
+            <div class="col-lg-6 col-md-12 mb-4">
+                <img src="{% static 'images/hom3.jpg' %}" alt="Holding Hands" class="img-fluid rounded shadow">
+            </div>
+
+            <!-- Right Side Content -->
+            <div class="col-lg-6 col-md-12 text-center text-lg-start">
+                <h6 class="fw-bold mb-2"><span class="text_black">Welcome To</span></h6>
+                <h2 class="fw-bold text-purple">Private Psychiatry <br>& Therapy Clinic</h2>
+                <p class="mb-4"> <span class="text_black">
+                    A specialized healthcare facility offering confidential, personalized mental health services,
+                    including psychiatric evaluations, medication management, and psychotherapy. Designed to provide
+                    discreet, compassionate care for individuals seeking support for emotional, behavioral, or
+                    psychological challenges.
+                    </span>
+                </p>
+                <a href="#" class="btn btn-primary fw-bold p-2 px-4 rounded-pill" style="background: linear-gradient(to right, #61317d, #2575fc); 
+                     border:none;font-size: 26px;color: black; margin-left: 160px;">
+                    Meet Our Team
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-4" style="background-color: #5f9ea0;margin-left: 30px;
+ margin-right: 30px;margin-bottom: 30px;">
+    <div class="container">
+        <div class="row text-center text-black">
+            <div class="col-md-3 col-6 mb-3">
+                <h4 class="fw-bolder">1586</h4>
+                <p class="mb-0">Session Per Year</p>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <h4 class="fw-bolder">20</h4>
+                <p class="mb-0">Year Experience</p>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <h4 class="fw-bolder">5000+</h4>
+                <p class="mb-0">Successful Therapy</p>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <h4 class="fw-bolder">18</h4>
+                <p class="mb-0">Specialist in Our team</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="container py-5">
+    <h3 style="padding-bottom: 40px; text-align: center; font-size: 38px;font-weight: 600;color: #61317d;">OUR SERVICES
+    </h3>
+    <div class="row g-4">
+
+        <!-- Individual Therapy -->
+        <div class="col-md-3">
+            <div class="p-4 text-center h-100 therapy-card">
+                <h5 class="fw-bold mb-4">Individual Therapy</h5>
+                <p class="text-muted mb-4">
+                    <a href="#" class="text-decoration-none text-secondary">Read more</a>
+                </p>
+                <img src="{% static 'images/one.png' %}" alt="Individual Therapy" width="200">
+            </div>
+        </div>
+
+        <!-- Therapy Image -->
+        <div class="col-md-3">
+            <img src="{% static 'images/hom4.jpg' %}" class="img-fluid therapy-img h-100 w-100" alt="Therapy">
+        </div>
+
+        <!-- Couples Therapy (highlighted card) -->
+        <div class="col-md-3">
+            <div class="p-4 text-center h-100 therapy-highlight">
+                <h5 class="fw-bold mb-4">Couples Therapy</h5>
+                <p class="mb-4">
+                    <a href="#" class="text-decoration-none text-light fs-5">Read more</a>
+                </p>
+                <img src="{% static 'images/hom5.jpg' %}" alt="Couples Therapy" width="200">
+            </div>
+        </div>
+
+        <!-- Group Therapy -->
+        <div class="col-md-3">
+            <div class="p-4 text-center h-100 therapy-card">
+                <h5 class="fw-bold mb-4">Group Therapy</h5>
+                <p class="text-muted mb-4">
+                    <a href="#" class="text-decoration-none text-secondary">Read more</a>
+                </p>
+                <img src="{% static 'images/group.png' %}" alt="Group Therapy" width="200">
+            </div>
+        </div>
+
+        <!-- Family Therapy Image -->
+        <div class="col-md-3">
+            
+            <img src="{% static 'images/hom6.jpg' %}" class="img-fluid therapy-img h-100 w-100" alt="Family Therapy">
+             
+        </div>
+
+        <!-- Family Therapy -->
+        <div class="col-md-3">
+            <div class="p-4 text-center h-100 therapy-card">
+                <a href="{% url 'family' %}" class="text-decoration-none text-secondary">
+                <h5 class="fw-bold mb-4">Family Therapy</h5>
+                <p class="text-muted mb-4">
+                    Read more
+                </p>
+                <img src="{% static 'images/famlo.png' %}" alt="Family Therapy" width="200">
+                </a>
+            </div>
+        </div>
+
+        <!-- Group Therapy Image -->
+        <div class="col-md-3">
+            <img src="{% static 'images/group_1.png' %}" class="img-fluid therapy-img h-100 w-100" alt="Group Therapy">
+        </div>
+
+        <!-- Online Therapy -->
+        <div class="col-md-3">
+            <div class="p-4 text-center h-100 therapy-card">
+                <h5 class="fw-bold mb-4">Online Therapy</h5>
+                <p class="text-muted mb-4">
+                    <a href="#" class="text-decoration-none text-secondary">Read more</a>
+                </p>
+                <img src="{% static 'images/device.png' %}" alt="Online Therapy" width="200">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="testimonials-section">
+    <div class="testimonials-header">
+        <div class="testimonials-label">Testimonials</div>
+        <h2 class="testimonials-title">What Our Clients Says</h2>
+    </div>
+
+    <div class="testimonials-container">
+        <button class="nav-arrow prev" onclick="prevTestimonial()">‹</button>
+        <button class="nav-arrow next" onclick="nextTestimonial()">›</button>
+
+        <div class="client-avatar">
+            <img src="{% static 'images/man.png' %}" alt="Client Avatar">
+        </div>
+    </div>
+
+    <div class="pagination-dots">
+        <div class="dot active" onclick="goToSlide(0)"></div>
+        <div class="dot" onclick="goToSlide(1)"></div>
+        <div class="dot" onclick="goToSlide(2)"></div>
+        <div class="dot" onclick="goToSlide(3)"></div>
+    </div>
+</div>
+
+<div class="therapist-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <p class="text-dark fs-5 mb-2">Meet Our Therapist</p>
+            <h2 class="sectiont-title">Our Team</h2>
+        </div>
+
+        <div class="position-relative">
+            <div class="position-absolute top-0 end-0" style="top: -80px !important;">
+                <button class="navt-arrow me-3" onclick="prevSlide()">←</button>
+                <button class="navt-arrow" onclick="nextSlide()">→</button>
+            </div>
+
+            <div class="row g-5 justify-content-center">
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-member">
+                        <img src="{% static 'images/home_1.png' %}" alt="JansiMerry" class="member-photo">
+                        <div class="member-info text-center">
+                            <div class="member-name">JansiMerry</div>
+                            <div class="member-role">Clinical Director /<br>Psychologist</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-member">
+                        <img src="{% static 'images/home_2.png' %}" alt="Rizza" class="member-photo">
+                        <div class="member-info text-center">
+                            <div class="member-name pb-3">Rizza</div>
+                            <div class="member-role">Psychologist</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-member">
+                        <img src="{% static 'images/home_3.png' %}" alt="John Smith" class="member-photo">
+                        <div class="member-info text-center">
+                            <div class="member-name">John Smith</div>
+                            <div class="member-role">Clinical Director /<br>Psychologist</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-member">
+                        <img src="{% static 'images/home_4.png' %}" alt="Brady John" class="member-photo">
+                        <div class="member-info text-center">
+                            <div class="member-name pb-3">Brady John</div>
+                            <div class="member-role">Psychologist</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center mt-5 gap-3">
+            <div class="dott active" onclick="goToSlide(0)"></div>
+            <div class="dott" onclick="goToSlide(1)"></div>
+            <div class="dott" onclick="goToSlide(2)"></div>
+            <div class="dott" onclick="goToSlide(3)"></div>
+            <div class="dott" onclick="goToSlide(4)"></div>
+        </div>
+    </div>
+</div>
+
+<div class="blog-section mb-5">
+    <div class="container ">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <p class="text-dark fs-5 fw-medium mb-2">From the Blog</p>
+            <h2 style="padding-bottom: 40px; text-align: center; font-size: 38px;font-weight: 600;color: #61317d;"
+                class="section-title mb-0">Latest Articles</h2>
+        </div>
+
+        <!-- Articles Grid -->
+        <div class="row g-4">
+            <!-- Article 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="article-card">
+                    <img src="{% static 'images/home8.jpg' %}" alt="Therapy session with child" class="article-image">
+                    <div class="article-content">
+                        <div>
+                            <div class="article-meta">News | April 21 2025</div>
+                            <h3 class="article-title">"Therapy Isn't Just for Crisis—Here's Why It Matters Every Day"
+                            </h3>
+                        </div>
+                        <a href="#" class="read-more">Read more</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="article-card">
+                    <img src="{% static 'images/home9.jpg' %}" alt="Online therapy session" class="article-image">
+                    <div class="article-content">
+                        <div>
+                            <div class="article-meta">News | April 14 2025</div>
+                            <h3 class="article-title">"Can Online Therapy Be as Effective? Here's What Research Says"
+                            </h3>
+                        </div>
+                        <a href="#" class="read-more">Read more</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="article-card">
+                    <img src="{% static 'images/home10.jpg' %}" alt="Person in therapy session" class="article-image">
+                    <div class="article-content">
+                        <div>
+                            <div class="article-meta">News | April 02 2025</div>
+                            <h3 class="article-title">"Breaking the Stigma: Why Seeing a Therapist Is a Strength"</h3>
+                        </div>
+                        <a href="#" class="read-more">Read more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="faq-section mb-5">
+    <div class="container">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h2 style="padding: 40px; text-align: center; font-size: 38px;font-weight: 600;color: #61317d;"
+                class="section-title mb-0">FAQs</h2>
+        </div>
+
+        <!-- FAQ Items -->
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                <!-- FAQ 1 - Expanded by default -->
+                <div class="faq-item active">
+                    <div class="faq-question" onclick="toggleFaq(0)">
+                        <h3 class="faq-question-text">1. How do I know if I need therapy?</h3>
+                        <span class="faq-icon"> - </span>
+                    </div>
+                    <div class="faq-answer show">
+                        If you're feeling overwhelmed, anxious, low, or stuck—or simply want to better understand
+                        yourself—therapy can help. You don't need a crisis to benefit from mental health support.
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(1)">
+                        <h3 class="faq-question-text">2. What is mental wellness?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Mental wellness is a state of well-being where you can cope with life's stresses, work
+                        productively, and contribute to your community. It involves emotional, psychological, and social
+                        well-being.
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(2)">
+                        <h3 class="faq-question-text">3. What types of therapy do you offer?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        We offer various therapeutic approaches including Cognitive Behavioral Therapy (CBT),
+                        Dialectical Behavior Therapy (DBT), mindfulness-based therapy, couples therapy, and family
+                        therapy, tailored to your specific needs.
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(3)">
+                        <h3 class="faq-question-text">4. What can I expect in a therapy session?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        In your first session, we'll discuss your goals and concerns in a safe, confidential
+                        environment. Ongoing sessions focus on developing coping strategies, exploring thoughts and
+                        feelings, and working toward your therapeutic goals.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleFaq(index) {
+        const faqItems = document.querySelectorAll('.faq-item');
+        const currentItem = faqItems[index];
+        const answer = currentItem.querySelector('.faq-answer');
+        const icon = currentItem.querySelector('.faq-icon');
+
+        // Close all other FAQs
+        faqItems.forEach((item, i) => {
+            if (i !== index) {
+                item.classList.remove('active');
+                item.querySelector('.faq-answer').classList.remove('show');
+                item.querySelector('.faq-icon').textContent = '+';
+            }
+        });
+
+        // Toggle current FAQ
+        if (currentItem.classList.contains('active')) {
+            currentItem.classList.remove('active');
+            answer.classList.remove('show');
+            icon.textContent = '+';
+        } else {
+            currentItem.classList.add('active');
+            answer.classList.add('show');
+            icon.textContent = '−';
+        }
+    }
+</script>
+
+<script>
+    (function () {
+        let currentSlide = 0;
+        const totalSlides = 5;
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.therapist-section .dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+        window.therapistNextSlide = function () {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateDots();
+        };
+
+        window.therapistPrevSlide = function () {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateDots();
+        };
+
+        window.therapistGoToSlide = function (index) {
+            currentSlide = index;
+            updateDots();
+        };
+    })();
+</script>
+
+<script>
+    let currentSlide = 0;
+    const totalSlides = 4;
+
+    function updateDots() {
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    function nextTestimonial() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateDots();
+    }
+
+    function prevTestimonial() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateDots();
+    }
+
+    function goToSlide(index) {
+        currentSlide = index;
+        updateDots();
+    }
+</script>
+
+{% endblock %}

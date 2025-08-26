@@ -1,0 +1,318 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body{
+        font-family: "Roboto", sans-serif;
+        background-color: #fce4ec;
+    }
+    .contact-container {
+        min-height: 100vh;
+    }
+
+    .hero-section {
+        background: url('{% static "images/meditation_853x480.jpg-min.jpg" %}');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 500px;
+        max-width: 1000;
+        margin-top: 50px;
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .hero-text {
+        font-size: 24px;
+        font-weight: bold;
+        max-width: 800px;
+        line-height: 1.4;
+        color: black;
+        padding-left: 350px;
+    }
+
+    .contact-title {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+        color: black;
+        margin: 40px 0;
+        letter-spacing: 2px;
+    }
+
+    .contact-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        align-items: start;
+    }
+
+    .info-section {
+        margin-bottom: 35px;
+    }
+
+    .info-section h3 {
+        font-size: 32px;
+        font-weight: bold;
+        color: black;
+        margin-bottom: 5px;
+        display: inline-block;
+    }
+
+    .info-section p {
+        color: black;
+        line-height: 1.2;
+        margin: 5px 0;
+        font-size: 24px;
+    }
+
+    .contact-form {
+        margin-top: 20px;
+        padding: 40px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px 15px;
+        border: 2px solid black;
+        border-radius: 8px;
+        font-size: 22px;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        background: #fafafa;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #8e44ad;
+        background: white;
+        box-shadow: 0 0 10px rgba(142, 68, 173, 0.2);
+    }
+
+    .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .recaptcha-container {
+        margin: 25px 0;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .recaptcha-checkbox {
+        width: 34px;
+        height: 24px;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        background: white;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .recaptcha-checkbox:checked::after {
+        position: absolute;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        top: -2px;
+        left: 4px;
+    }
+
+    .recaptcha-text {
+        color: #555;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .recaptcha-logo {
+        width: 70px;
+        height: 50px;
+        background: #f0f0f0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+        line-height: 1.2;
+    }
+
+    .submit-btn {
+        width: 100%;
+        background-color: purple;
+        color: white;
+        padding: 18px;
+        border: none;
+        border-radius: 25px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        border: 2px solid black;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 5px 15px rgba(142, 68, 173, 0.3);
+    }
+
+    .submit-btn:hover {
+        background: linear-gradient(135deg, #7d3c98 0%, #8e44ad 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(142, 68, 173, 0.4);
+    }
+
+    .submit-btn:active {
+        transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+        .contact-wrapper {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .hero-text {
+            font-size: 20px;
+            margin-left: 30px;
+        }
+
+        .contact-info,
+        .contact-form {
+            padding: 30px 20px;
+        }
+
+        .contact-title {
+            font-size: 24px;
+        }
+    }
+</style>
+
+<div class="contact-container">
+    <div class="hero-section">
+        <div class="hero-text">
+            "Reach out — we're here to<br>
+            help you find your inner peace."
+        </div>
+    </div>
+
+    <h1 class="contact-title">Contact DEE PLUS</h1>
+
+    <div class="contact-wrapper">
+        <div class="contact-info">
+            <div class="info-section">
+                <h3>Address:</h3>
+                <p>6, Hethendran Street,<br>
+                    Kongu Nagar,<br>
+                    Karur - 26</p>
+                <p><strong>Mobile No:</strong><br>
+                    +9532 32556</p>
+                <p><strong>E-Mail Id:</strong><br>
+                    deepluswell@gmail.com</p>
+            </div>
+
+            <div class="info-section">
+                <h3>General Enquirers</h3>
+                <p>Got a general question?<br>
+                    Please use this Contact Form to reach out to us.</p>
+            </div>
+
+            <div class="info-section">
+                <h3>Feedback</h3>
+                <p>Do you have something to say about<br>
+                    The Guided Meditation Site? Feel free to<br>
+                    give us your feedback via this Contact Form.</p>
+            </div>
+
+            <div class="info-section">
+                <h3>Opening Time</h3>
+                <p>Monday - Sunday<br>
+                    9.00 AM To 9.00PM</p>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <form method="post" action="{% url 'contact' %}">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Name" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="tel" name="mobile" placeholder="Mobile No" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="E-Mail" required>
+                </div>
+
+                <div class="form-group">
+                    <textarea name="message" placeholder="Message" required></textarea>
+                </div>
+
+                <div class="recaptcha-container">
+                    <input type="checkbox" class="recaptcha-checkbox" id="recaptcha" name="recaptcha" required>
+                    <label for="recaptcha" class="recaptcha-text">I am Not Robot</label>
+                    <div class="recaptcha-logo">
+                        <img src="{% static 'images/recaptcha.png' %}" alt="Holding Hands" class="img-fluid rounded shadow">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Contact Us</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const inputs = form.querySelectorAll('input, textarea');
+
+        inputs.forEach(input => {
+            input.addEventListener('focus', function () {
+                this.style.transform = 'scale(1.02)';
+            });
+
+            input.addEventListener('blur', function () {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        form.addEventListener('submit', function (e) {
+            const recaptcha = document.getElementById('recaptcha');
+            if (!recaptcha.checked) {
+                e.preventDefault();
+                alert('Please verify that you are not a robot.');
+                return;
+            }
+
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.style.opacity = '0.7';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                submitBtn.textContent = 'Contact Us';
+                submitBtn.style.opacity = '1';
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+    });
+</script>
+{% endblock %}

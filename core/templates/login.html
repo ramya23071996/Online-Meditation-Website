@@ -1,0 +1,76 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: "Roboto", sans-serif;
+        background-color: #fce4ec;
+    }
+
+    .auth-container {
+        margin: 50px;
+        margin-left: 250px;
+        background: #ebd9f8;
+        padding: 50px;
+        border-radius: 20px;
+        width: 600px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: purple;
+        margin-bottom: 30px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 40px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+        background: purple;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #5b4bd6;
+    }
+
+    .message {
+        color: red;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="auth-container">
+    <h2>Login</h2>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="message">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <p style="text-align:center;margin-top:15px; color: black;">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+</div>
+{% endblock %}

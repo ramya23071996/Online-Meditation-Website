@@ -1,0 +1,288 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+    }
+
+    .btn-dark-custom {
+        background-color: black;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 30px;
+        font-size: 20px;
+        font-weight: 700;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        width: 350px;
+    }
+
+    .btn-dark-custom:hover {
+        background-color: #1a1a1a;
+        transform: translateY(-2px);
+        color: white;
+    }
+
+    .page-title {
+        font-size: 39;
+        color: #8b3d99;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .daily-themes {
+        padding: 50px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .daily-themes h6 {
+        color: black;
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+
+    .daily-themes p {
+        color: black;
+        font-size: 22px;
+        margin-bottom: 20px;
+        line-height: 1.5;
+
+    }
+
+    .meditation-card {
+        position: relative;
+        width: 100%;
+        width: 500px;
+        /* adjust as needed */
+        height: 600px;
+        /* adjust as needed */
+        color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .card-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("{% static 'images/istockphoto-1365223878-612x612.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        z-index: 0;
+    }
+
+    .play-button-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        border: 2px solid white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+
+    .play-button-overlay i {
+        font-size: 50px;
+        color: white;
+    }
+
+    .card-title {
+        font-weight: 600;
+        z-index: 1;
+        text-align: center;
+    }
+
+    .progress-bar-custom {
+        width: 100%;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: #fff;
+        border-radius: 5px;
+    }
+
+    .time-display {
+        font-size: 12px;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+
+<div class="container py-5">
+
+    <h1 class="page-title">Meditation</h1>
+
+    <div class="text-center mb-4">
+        <a href="{% url 'trials' %}" class="btn-dark-custom">Start Your Free Trial</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="mb-4" style="padding-top: 100px; padding-bottom: 100px;">
+                <p class="text-muted mb-2" style="font-size:22px ; color: black !important; font-weight: 500;">Featured
+                    Meditation</p>
+                <h3 class="mb-4" style="font-size: 38px; color: #8b3d99 ; font-weight: 600;">Sleep Meditation</h3>
+            </div>
+
+            <!-- Start Your Free Trial Button (Left) -->
+            <div class="mb-5">
+                <a href="{% url 'trials' %}" class="btn-dark-custom text-center">Start Your Free Trial</a>
+            </div>
+        </div>
+
+        <!-- Right Column - Meditation Player -->
+        <div class="col-md-6">
+            <div class="meditation-card">
+                <!-- Background div -->
+                <div class="card-bg"></div>
+
+                <!-- Play Button Overlay -->
+                <div class="play-button-overlay" onclick="togglePlay()">
+                    <i class="fas fa-play" id="playIcon"></i>
+                </div>
+
+                <!-- Title -->
+                <h5 class="text-center mb-3 card-title">Soothe Anxiety to Sleep</h5>
+
+                <!-- Progress Bar -->
+                <div class="progress-bar-custom mb-2">
+                    <div class="progress-fill" id="progressBar" style="width: 5%;"></div>
+                </div>
+
+                <!-- Time Display -->
+                <div class="d-flex justify-content-between time-display">
+                    <span id="currentTime">0:00</span>
+                    <span>30:00</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Daily Themes Section -->
+    <div class="mt-5 text-center">
+
+
+        <div class="daily-themes">
+            <h4 class="text-center mb-4" style="color: black; font-weight: 600; font-size: 28px;">Daily Themes (5-10
+                minutes
+                each)</h4>
+            <!-- Day 1 -->
+            <div class="mb-4">
+                <h6>Day 1 - Gratitude</h6>
+                <p>Focus on 3 things you're thankful for. Feel the warmth they bring.</p>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="mb-4">
+                <h6>Day 2 - Loving Kindness</h6>
+                <p>Silently repeat "May I be happy. May others around me be happy."</p>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="mb-4">
+                <h6>Day 3 - Present Moment Joy</h6>
+                <p>Mindfully notice small joys—breath, light, sound—with full attention.</p>
+            </div>
+
+            <!-- Day 4 -->
+            <div class="mb-4">
+                <h6>Day 4 - Smile Meditation</h6>
+                <p>Gently smile while breathing slowly. Let the feeling of ease spread.</p>
+            </div>
+
+            <!-- Day 5 -->
+            <div class="mb-4">
+                <h6>Day 5 - Positive Memories</h6>
+                <p>Recall a joyful moment. Re-experience it with all your senses.</p>
+            </div>
+
+            <!-- Day 6 -->
+            <div class="mb-4">
+                <h6>Day 6 - Self-Compassion</h6>
+                <p>Send kindness to yourself. Affirm: "I am enough, I deserve joy."</p>
+            </div>
+
+            <!-- Day 7 -->
+            <div class="mb-4">
+                <h6>Day 7 - Intentional Joy</h6>
+                <p>Visualize a joyful life. Imagine waking up smiling, living freely.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    let isPlaying = false;
+    let progress = 0;
+    let interval;
+
+    function togglePlay() {
+        const playIcon = document.getElementById('playIcon');
+        const progressBar = document.getElementById('progressBar');
+        const currentTime = document.getElementById('currentTime');
+
+        if (!isPlaying) {
+            playIcon.className = 'fas fa-pause';
+            isPlaying = true;
+
+            // Start progress simulation
+            interval = setInterval(() => {
+                progress += 0.33; // Slower progress for 30-minute track
+                progressBar.style.width = progress + '%';
+
+                // Update time display
+                const seconds = Math.floor((progress / 100) * 1800); // 30 minutes = 1800 seconds
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                currentTime.textContent = `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    playIcon.className = 'fas fa-play';
+                    isPlaying = false;
+                    progress = 0;
+                    progressBar.style.width = '0%';
+                    currentTime.textContent = '0:00';
+                }
+            }, 100);
+        } else {
+            playIcon.className = 'fas fa-play';
+            isPlaying = false;
+            clearInterval(interval);
+        }
+    }
+</script>
+{% endblock %}
